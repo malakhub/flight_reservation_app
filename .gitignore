@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# PyInstaller build files
+build/
+dist/
+*.spec
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

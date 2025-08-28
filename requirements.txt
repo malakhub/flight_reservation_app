@@ -1,0 +1,9 @@
+# Required Python libraries
+
+
+# Standard libraries (come with Python, listed for clarity)
+tkinter
+sqlite3
+os
+
+pyinstaller
