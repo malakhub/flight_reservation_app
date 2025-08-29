@@ -1,8 +1,16 @@
 # Home page UI
 import os
+import sys
 from tkinter import *
 from booking import BookingPage
 from reservations import ReservationPage
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class HomePage():
     def __init__(self, win):
@@ -12,25 +20,24 @@ class HomePage():
         self.clear_window()
         
         # Path of Images
-        BASE_DIR = os.path.dirname(__file__)
-        IMG_DIR = os.path.join(BASE_DIR,"images")
+        IMG_DIR = resource_path("images")
         
         # Background
-        self.img = PhotoImage(file=os.path.join(IMG_DIR, "0.png"))
+        self.img = PhotoImage(file=resource_path("images/0.png"))
         bg = Label(self.master, image=self.img)
         bg.place(x=0,y=0)
 
         # Book a Flight Button
-        self.img_book1 = PhotoImage(file=os.path.join(IMG_DIR, "3.png"))
-        self.img_book2 = PhotoImage(file=os.path.join(IMG_DIR, "4.png"))
+        self.img_book1 = PhotoImage(file=resource_path("images/3.png"))
+        self.img_book2 = PhotoImage(file=resource_path("images/4.png"))
         bt = Button(self.master, image=self.img_book1, relief='flat', bd=0, command=self.booking)
         bt.bind("<Enter>", lambda e: self.bt_enter(e, self.img_book2))
         bt.bind("<Leave>", lambda e: self.bt_leave(e, self.img_book1))
         bt.place(x=55,y=490)
 
         # View Reservation Button
-        self.img_res1 = PhotoImage(file=os.path.join(IMG_DIR, "5.png"))
-        self.img_res2 = PhotoImage(file=os.path.join(IMG_DIR, "6.png"))
+        self.img_res1 = PhotoImage(file=resource_path("images/5.png"))
+        self.img_res2 = PhotoImage(file=resource_path("images/6.png"))
         bt2 = Button(self.master, image=self.img_res1, relief='flat', bd=0, command=self.reservation)
         bt2.bind("<Enter>", lambda e: self.bt_enter(e, self.img_res2))
         bt2.bind("<Leave>", lambda e: self.bt_leave(e, self.img_res1))

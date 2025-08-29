@@ -1,10 +1,18 @@
 # Main application file
 from tkinter import *
 import os 
+import sys
 
 #import modules from my own files
 from home import HomePage
 from database import setup_database
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 def main():
     
@@ -19,9 +27,7 @@ def main():
     win.title("Flight Reservation")
     
     # Icon
-    BASE_DIR = os.path.dirname(__file__)
-    ICON_PATH = os.path.join(BASE_DIR, "plane.ico")
-    win.iconbitmap(ICON_PATH)
+    win.iconbitmap(resource_path("plane.ico"))
 
     # first page is the home page
     HomePage(win)

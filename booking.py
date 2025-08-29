@@ -3,6 +3,14 @@ from tkinter import *
 from tkinter import messagebox, Canvas
 from database import add_reservation
 import os
+import sys
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class BookingPage:
     def __init__(self, master):
@@ -12,15 +20,21 @@ class BookingPage:
         self.clear_window()
 
         # Path of Images
-        BASE_DIR = os.path.dirname(__file__)
-        IMG_DIR = os.path.join(BASE_DIR,"images")
+        if getattr(sys, 'frozen', False):
+            # Running as .exe
+            BASE_DIR = sys._MEIPASS
+            IMG_DIR = os.path.join(BASE_DIR, "images")
+        else:
+            # Running as script
+            BASE_DIR = os.path.dirname(__file__)
+            IMG_DIR = os.path.join(BASE_DIR, "images")
 
         # Create Canvas
         canvas = Canvas(self.master,bg = "#FFFFFF",height = 720,width = 1280,bd = 0,highlightthickness = 0,relief = "ridge")
         canvas.place(x=0, y=0)  
         
         # Background
-        self.img = PhotoImage(file=os.path.join(IMG_DIR, "1.png"))
+        self.img = PhotoImage(file=resource_path("images/1.png"))
         canvas.create_image(640.0, 360.0, image=self.img)
 
         # Create input fields labels and keys
@@ -72,16 +86,16 @@ class BookingPage:
             self.entries[key] = entry
         
         # Submit button
-        self.button_image_0 = PhotoImage(file=os.path.join(IMG_DIR, "7.png"))
-        self.button_image_1= PhotoImage(file=os.path.join(IMG_DIR, "8.png"))
+        self.button_image_0 = PhotoImage(file=resource_path("images/7.png"))
+        self.button_image_1 = PhotoImage(file=resource_path("images/8.png"))
         submitbt = Button(image=self.button_image_0,borderwidth=0,highlightthickness=0,command= self.submit,relief="flat")
         submitbt.bind("<Enter>", lambda e: self.bt_enter(e, self.button_image_1))
         submitbt.bind("<Leave>", lambda e: self.bt_leave(e, self.button_image_0))
         submitbt.place(x=84.0,y=600.0,width=127.0,height=38.0)
 
         # Cancel Button
-        self.button_image_2 = PhotoImage(file=os.path.join(IMG_DIR, "9.png"))
-        self.button_image_3 = PhotoImage(file=os.path.join(IMG_DIR, "10.png"))
+        self.button_image_2 = PhotoImage(file=resource_path("images/9.png"))
+        self.button_image_3 = PhotoImage(file=resource_path("images/10.png"))
         cancelbt = Button(image=self.button_image_2,borderwidth=0,highlightthickness=0,command= self.go_home,relief="flat")
         cancelbt.bind("<Enter>", lambda e: self.bt_enter(e, self.button_image_3))
         cancelbt.bind("<Leave>", lambda e: self.bt_leave(e, self.button_image_2))
